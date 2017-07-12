@@ -3,7 +3,7 @@ Dynamically constructs the SOQL based on salesforce best practices and enforce o
 
 Here is the example:
 
-Let's suppose, you need to make a query like [SELECT Id, Name FROM Account] then you need to follow the below given steps:
+Let's suppose, you need to make a query like [SELECT Id, Name FROM Account WHERE Type='Customer'] then you need to follow the below given steps:
 
 1. Create an instance of apex class:
 SOQLApexUtility.QueryBuilder queryObject = new SOQLApexUtility.QueryBuilder();
