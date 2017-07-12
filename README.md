@@ -7,26 +7,26 @@ Let's suppose, you need to make a query like [SELECT Id, Name FROM Account WHERE
 
 1. Create an instance of apex class:
 
-SOQLApexUtility.QueryBuilder queryObject = new SOQLApexUtility.QueryBuilder();
+	SOQLApexUtility.QueryBuilder queryObject = new SOQLApexUtility.QueryBuilder();
 2. Build the query:
 
-queryObject.objectAPIName = 'Account';//API NAME OF OBJECT
-queryObject.fieldsName = 'Type;Name;RecordTypeId'; //SEMI-COLON SEPARATED FIELD'S API NAME
-queryObject.whereClause = 'Type = \''+'Customer'+'\'';
+	queryObject.objectAPIName = 'Account';//API NAME OF OBJECT
+	queryObject.fieldsName = 'Type;Name;RecordTypeId'; //SEMI-COLON SEPARATED FIELD'S API NAME
+	queryObject.whereClause = 'Type = \''+'Customer'+'\'';
 
 3. Go for query:
 
-List<Account> accList = (List<Account>)SOQLApexUtility.queryAnyObjectDynamically(queryObject);
+	List<Account> accList = (List<Account>)SOQLApexUtility.queryAnyObjectDynamically(queryObject);
 
 # Example using a method:
 
-public static List<Object> returnRecentAccount(Set<String> targetAccountIDs){
+	public static List<Object> returnRecentAccount(Set<String> targetAccountIDs){
+		String targetAccountIDs = SOQLApexUtility.prepareSetForDynamicINClauseQuery(new List<String>(accountIds.keySet()));
+		SOQLApexUtility.QueryBuilder queryObject = new SOQLApexUtility.QueryBuilder();
+		queryObject.objectAPIName = 'Account';//API NAME OF OBJECT
+		queryObject.fieldsName = 'Type;Name;RecordTypeId'; //SEMI-COLON SEPARATED FIELD'S API NAME
+		queryObject.whereClause = 'Id IN '+targetAccountIDs+' AND Type = \''+'Customer'+'\'';
+		List<Account> accList = (List<Account>)SOQLApexUtility.queryAnyObjectDynamically(queryObject);  
+   }
+  
 
-    String targetAccountIDs = SOQLApexUtility.prepareSetForDynamicINClauseQuery(new List<String>(accountIds.keySet()));
-    SOQLApexUtility.QueryBuilder queryObject = new SOQLApexUtility.QueryBuilder();
-    queryObject.objectAPIName = 'Account';//API NAME OF OBJECT
-    queryObject.fieldsName = 'Type;Name;RecordTypeId'; //SEMI-COLON SEPARATED FIELD'S API NAME
-    queryObject.whereClause = 'Id IN '+targetAccountIDs+' AND Type = \''+'Customer'+'\'';
-    List<Account> accList = (List<Account>)SOQLApexUtility.queryAnyObjectDynamically(queryObject);
-    
-  }
